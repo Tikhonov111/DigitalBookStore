@@ -1,6 +1,5 @@
 package digital_book_store;
-
-
+import java.time.LocalDate;
 
 public class Book {
     private String name;
@@ -9,12 +8,26 @@ public class Book {
     private BookStatus availableStatus;
     private Integer price;
 
-    public Book(String name, String author, int idBook, BookStatus availableStatus, Integer price) {
+    private LocalDate publicationDate;
+    private LocalDate deliviryDate;
+
+    public Book(String name, String author, int idBook, BookStatus availableStatus, Integer price, LocalDate publicationDate) {
         this.name = name;
         this.author = author;
         this.id = idBook;
         this.availableStatus = availableStatus;
         this.price = price;
+        this.publicationDate = publicationDate;
+    }
+
+    public Book(String name, String author, int idBook, BookStatus availableStatus, Integer price, LocalDate publicationDate, LocalDate deliviryDate) {
+        this.name = name;
+        this.author = author;
+        this.id = idBook;
+        this.availableStatus = availableStatus;
+        this.price = price;
+        this.publicationDate = publicationDate;
+        this.deliviryDate = deliviryDate;
     }
 
     public String getName() {
@@ -57,6 +70,22 @@ public class Book {
         this.price = price;
     }
 
+    public LocalDate getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public LocalDate getDeliviryDate() {
+        return deliviryDate;
+    }
+
+    public void setDeliviryDate(LocalDate deliviryDate) {
+        this.deliviryDate = deliviryDate;
+    }
+
     public static class SequenceGenerator {
         volatile static int n = 1;
         public static synchronized int getId() {
@@ -79,6 +108,14 @@ public class Book {
         if (this.getAvailableStatus() == BookStatus.NOT_AVAILABLE) {
             stringBuilder.append(", отсутсвует на складе, ");
         }
+        stringBuilder.append("дата публикации книги: " + publicationDate);
+
+        if(this.getDeliviryDate() != null ) {
+            stringBuilder.append(", дата доставки книги в магазин " + deliviryDate);
+        }
+
+        stringBuilder.append(", цена: " + this.price);
+
         return stringBuilder.toString();
     }
 }
